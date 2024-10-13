@@ -36,9 +36,4 @@ class Player:
                 self.game_status = 'game_over'
                 traffic_cars.empty()
 
-    def raycast(self, screen):
-        for x in range(-500, 500, 50):
-            for y in range(0, 600, 50):
-                ray = pygame.draw.line(screen, (255, 255, 255), self.rect.center, [self.rect.center[0] + x, self.rect.center[1] - y], 1)
-
         

@@ -30,15 +30,15 @@ def Game():
         return image
 
 
-    player_image = get_car_image('src/images/mercedes.png', (90, 65), -90)
+    player_image = get_car_image('src/images/player_car.png', (90, 65), -90)
     road_image = pygame.image.load('src/images/road.png')
     road_image = pygame.transform.scale(road_image, (500, 800))
 
     traffic_car_images = []
-    traffic_car1 = get_car_image('src/images/traffic_car1.png', (90, 65), 90)
-    traffic_car2 = get_car_image('src/images/traffic_car2.png', (90, 65), -90)
-    traffic_car3 = get_car_image('src/images/traffic_car3.png', (90, 65), -90)
-    traffic_car_images.extend((traffic_car1, traffic_car2, traffic_car3))
+    orange_car = get_car_image('src/images/orange_car.png', (90, 65), -90)
+    aqua_car = get_car_image('src/images/aqua_car.png', (90, 65), -90)
+    yellow_car = get_car_image('src/images/yellow_car.png', (90, 65), 90)
+    traffic_car_images.extend((orange_car, aqua_car, yellow_car))
 
     road = Road(road_image, (250, 400))
     road_group.add(road)
