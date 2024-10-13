@@ -1,6 +1,8 @@
 import pygame.key
 import pygame
 
+from src.config.raycast import Raycast
+
 class Player:
     def __init__(self, position, image):
         self.image = image
@@ -8,14 +10,22 @@ class Player:
         self.rect.center = position
         self.game_status = 'game'
         self.fps = 60
-        self.angle = 0
         self.score = 0
+
+
+    def raycast(self, screen):
+        raycast = Raycast(self.rect.center)
+        raycast_group = pygame.sprite.Group()
+        spawn_raycast_time = pygame.USEREVENT
+        raycast_group.add(raycast)
+        raycast_group.draw(screen)
 
     def border(self):
         if self.rect.right > 500:
             self.rect.right = 500
         if self.rect.left < 0:
             self.rect.left = 0
+
 
     def move(self):
         key = pygame.key.get_pressed()
@@ -35,5 +45,7 @@ class Player:
             if car.rect.colliderect(self.rect):
                 self.game_status = 'game_over'
                 traffic_cars.empty()
+
+    
 
         
