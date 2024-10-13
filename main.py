@@ -1,6 +1,4 @@
-import src.game.game as traffic_race
-import src.ai.ai as AI
-
+import src.game as traffic_race
 
 def main():
     traffic_race.Game()

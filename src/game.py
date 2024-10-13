@@ -2,9 +2,9 @@ import random
 import pygame
 import pygame.freetype
 
-from src.game.src.player import Player
-from src.game.src.road import Road
-from src.game.src.traffic import TrafficCar
+from src.config.player import Player
+from src.config.road import Road
+from src.config.traffic import TrafficCar
 
 def Game():
     pygame.init()
@@ -30,14 +30,14 @@ def Game():
         return image
 
 
-    player_image = get_car_image('src/game/images/mercedes.png', (90, 65), -90)
-    road_image = pygame.image.load('src/game/images/road.png')
+    player_image = get_car_image('src/images/mercedes.png', (90, 65), -90)
+    road_image = pygame.image.load('src/images/road.png')
     road_image = pygame.transform.scale(road_image, (500, 800))
 
     traffic_car_images = []
-    traffic_car1 = get_car_image('src/game/images/traffic_car1.png', (90, 65), 90)
-    traffic_car2 = get_car_image('src/game/images/traffic_car2.png', (90, 65), -90)
-    traffic_car3 = get_car_image('src/game/images/traffic_car3.png', (90, 65), -90)
+    traffic_car1 = get_car_image('src/images/traffic_car1.png', (90, 65), 90)
+    traffic_car2 = get_car_image('src/images/traffic_car2.png', (90, 65), -90)
+    traffic_car3 = get_car_image('src/images/traffic_car3.png', (90, 65), -90)
     traffic_car_images.extend((traffic_car1, traffic_car2, traffic_car3))
 
     road = Road(road_image, (250, 400))
