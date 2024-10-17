@@ -2,23 +2,34 @@ import pygame.key
 import pygame
 
 from src.config.raycast import Raycast
+from src.config.ai import *
 
 class Player:
-    def __init__(self, position, image):
+    def __init__(self, position, image, traffic):
         self.image = image
         self.rect = self.image.get_rect()
         self.rect.center = position
         self.game_status = 'game'
         self.fps = 60
         self.score = 0
-
+        self.traffic = traffic
 
     def raycast(self, screen):
-        raycast = Raycast(self.rect.center)
         raycast_group = pygame.sprite.Group()
-        spawn_raycast_time = pygame.USEREVENT
+        raycast = Raycast(self.rect.center)
+        raycast.Check_Collide(self.traffic, screen)
+
         raycast_group.add(raycast)
         raycast_group.draw(screen)
+
+        network = OurNeuralNetwork()
+
+        if raycast.Check_Collide(self.traffic, screen):
+            x = np.array([self.rect[0], raycast.Check_Collide(self.traffic, screen)])
+            print(network.feedforward(x))
+            if network.feedforward(x) > 0.8807970779778823: self.rect.x -= 4
+            elif network.feedforward(x) < 0.8807970779778823: self.rect.x += 4
+            self.border()
 
     def border(self):
         if self.rect.right > 500:

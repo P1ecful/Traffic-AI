@@ -21,7 +21,7 @@ def Game():
 
     traffic_cars_group = pygame.sprite.Group()
     spawn_traffic_time = pygame.USEREVENT + 1
-    pygame.time.set_timer(spawn_traffic_time, 1000)
+    pygame.time.set_timer(spawn_traffic_time, 2000)
 
     def get_car_image(filename, size, angle):
         image = pygame.image.load(filename)
@@ -51,7 +51,7 @@ def Game():
 
     def spawn_traffic():
         position = (random.randint(40, 460), random.randint(-60, -40))
-        speed = random.randint(5, 7)
+        speed = random.randint(3, 3)
         traffic_car = TrafficCar(random.choice(traffic_car_images), position, speed, player)
         traffic_cars_group.add(traffic_car)
 
@@ -62,10 +62,10 @@ def Game():
         traffic_cars_group.update()
         traffic_cars_group.draw(screen)
         
-        player.raycast(screen)
         player.draw(screen)
+        player.raycast(screen)
 
-    player = Player((300, 600), player_image)
+    player = Player((300, 600), player_image, traffic_cars_group)
     running = True
     while running:
         for event in pygame.event.get():
@@ -83,9 +83,11 @@ def Game():
             player.crash(traffic_cars_group)
         elif player.game_status == 'game_over':
             player.score = 0
+            player.position = (300, 600)
             player.game_status = 'game'
 
 
         font.render_to(screen, (20, 20), f'Score: {player.score}', (255, 255, 255), (0, 0, 0))
         pygame.display.flip()
         clock.tick(player.fps)
+
