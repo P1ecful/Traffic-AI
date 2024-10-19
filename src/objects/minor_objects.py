@@ -1,7 +1,7 @@
 import pygame.sprite
 
-
-class TrafficCar(pygame.sprite.Sprite):
+# Класс объекта трафика
+class Traffic(pygame.sprite.Sprite):
     def __init__(self, image, position, speed, player):
         super().__init__()
         self.speed = speed
@@ -18,3 +18,14 @@ class TrafficCar(pygame.sprite.Sprite):
     def update(self):
         self.rect.y += self.speed
         self.remove()
+
+# Класс объекта дороги
+class Road(pygame.sprite.Sprite):
+    def __init__(self, image, position):
+        super().__init__()
+        self.image = image
+        self.rect = self.image.get_rect()
+        self.rect.center = position
+
+    def update(self):
+        self.rect.y += 3
