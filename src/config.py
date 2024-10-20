@@ -21,6 +21,7 @@ FPS = 60
 # Тайминги спавна
 ROAD_TIMING = pygame.USEREVENT
 TRAFFIC_TIMING = pygame.USEREVENT + 1
+CAPTURE_TIMING = pygame.USEREVENT + 2
 
 # Текстура игрока
 AI_TEXTURE = LoadCarTexture('src/images/player_car.png', (90, 65), -90)

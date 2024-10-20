@@ -1,15 +1,17 @@
+import os
 import random 
 import pygame, pygame.freetype
 
 # !FIXME изменить имена файлов
 from src.config import *
-from src.objects.player import Player
-from src.objects.minor_objects import *
+from src.objects.ai import *
+from src.objects.objects import *
 
 def main():
     # Группы объектов
     road_group = pygame.sprite.Group()
     traffic_group = pygame.sprite.Group()
+    capture_group = pygame.sprite.Group()
 
     # Спавн стартовой дорог
     road_group.add(Road(ROAD_TEXTURE, (250, 400)))
@@ -17,10 +19,11 @@ def main():
 
     # Таймеры на спавн дороги и трафика
     pygame.time.set_timer(ROAD_TIMING, 1000)
+    pygame.time.set_timer(CAPTURE_TIMING, 1500)
     pygame.time.set_timer(TRAFFIC_TIMING, 2000)
 
-    # Создаем объект нейронки
-    AI = Player((300, 600), AI_TEXTURE, traffic_group)
+    AI = Player((300, 600), AI_TEXTURE, traffic_group) # Создаем объект нейронки
+    Capture_line = TrafficCapture((300, 600)) # Линия захвата трафика
 
     RUNNING = True
     while RUNNING:
@@ -39,9 +42,15 @@ def main():
                     AI
                 ))
 
+
         # Отрисовка дороги
         road_group.update()
         road_group.draw(screen)
+
+        # Захват объектов
+        Capture_line.Check_Collide(traffic_group, screen)
+        capture_group.update()
+        capture_group.draw(screen)
 
         # Отрисовка трафика
         traffic_group.update()
@@ -49,7 +58,6 @@ def main():
         
         # Отрисовка нейронки
         AI.draw(screen)
-        AI.move()
         AI.crash(traffic_group)
 
         # Надпись Score
@@ -58,6 +66,8 @@ def main():
         clock.tick(FPS)
 
 if __name__ == "__main__":
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
     pygame.init()
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode(SCREEN_SIZE)
